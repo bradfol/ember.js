@@ -22,8 +22,6 @@ var o_create = Object.create || (function(){
 
 var guids = 0;
 
-var passedOptions;
-
 var factory = function() {
   var Klass = function(options) {
     setProperties(this, options);
@@ -47,7 +45,6 @@ var factory = function() {
   return Klass;
 
   function create(options) {
-    var passedOptions = options;
     return new this.prototype.constructor(options);
   }
 

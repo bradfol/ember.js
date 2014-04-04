@@ -1,6 +1,4 @@
-import { factory,
-         o_create,
-         setProperties} from 'container/tests/container_helper';
+import { factory } from 'container/tests/container_helper';
 
 import Container from 'container';
 var container;
@@ -60,7 +58,7 @@ test("Destroying a parent container destroys the sub-containers", function() {
 
 test("Resolver is inherited from parent container", function() {
   var otherController = factory();
-  container.resolver = function(fullName) {
+  container.resolver = function() {
     return otherController;
   };
   var subContainer = container.child();

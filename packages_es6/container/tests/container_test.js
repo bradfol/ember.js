@@ -1,6 +1,4 @@
-import { factory,
-         o_create,
-         setProperties} from 'container/tests/container_helper';
+import { factory } from 'container/tests/container_helper';
 
 import Container from 'container';
 
@@ -52,7 +50,6 @@ test("A registered factory is returned from lookupFactory is the same factory ea
 test("A factory returned from lookupFactory has a debugkey", function(){
   var container = new Container();
   var PostController = factory();
-  var instance;
 
   container.register('controller:post', PostController);
   var PostFactory = container.lookupFactory('controller:post');
@@ -67,8 +64,6 @@ test("fallback for to create time injections if factory has no extend", function
   var PostController = factory();
 
   PostController.extend = undefined; // remove extend
-
-  var instance;
 
   container.register('controller:apple', AppleController);
   container.register('controller:post', PostController);
@@ -287,8 +282,8 @@ test("Injecting a failed lookup raises an error", function() {
   var fooFactory  = {};
 
   var Foo = {
-    create: function(args) { return fooInstance; },
-    extend: function(args) { return fooFactory;  }
+    create: function() { return fooInstance; },
+    extend: function() { return fooFactory;  }
   };
 
   container.register('model:foo', Foo);
@@ -365,7 +360,7 @@ test("The container normalizes names before resolving", function() {
   var container = new Container();
   var PostController = factory();
 
-  container.normalize = function(fullName) {
+  container.normalize = function() {
     return 'controller:post';
   };
 
@@ -379,7 +374,7 @@ test("The container normalizes names when unregistering", function() {
   var container = new Container();
   var PostController = factory();
 
-  container.normalize = function(fullName) {
+  container.normalize = function() {
     return 'controller:post';
   };
 
@@ -398,7 +393,7 @@ test("The container normalizes names when resolving", function() {
   var container = new Container();
   var PostController = factory();
 
-  container.normalize = function(fullName) {
+  container.normalize = function() {
     return 'controller:post';
   };
 
@@ -412,7 +407,7 @@ test("The container normalizes names when looking factory up", function() {
   var container = new Container();
   var PostController = factory();
 
-  container.normalize = function(fullName) {
+  container.normalize = function() {
     return 'controller:post';
   };
 
@@ -426,7 +421,7 @@ test("The container normalizes names when checking if the factory or instance is
   var container = new Container();
   var PostController = factory();
 
-  container.normalize = function(fullName) {
+  container.normalize = function() {
     return 'controller:post';
   };
 
@@ -440,7 +435,7 @@ test("validateFullName throws an error if name is incorrect", function() {
   var container = new Container();
   var PostController = factory();
 
-  container.normalize = function(fullName) {
+  container.normalize = function() {
     return 'controller:post';
   };
 
@@ -455,7 +450,7 @@ test("The container normalizes names when injecting", function() {
   var PostController = factory();
   var user = { name: 'Stef' };
 
-  container.normalize = function(fullName) {
+  container.normalize = function() {
     return 'controller:post';
   };
 
@@ -529,7 +524,7 @@ test('container.has should not accidentally cause injections on that factory to 
     FirstApple = factory('first'),
     SecondApple = factory('second');
 
-  SecondApple.extend = function(a,b,c) {
+  SecondApple.extend = function() {
     ok(false, 'should not extend or touch the injected model, merely to inspect existence of another');
   };
 
