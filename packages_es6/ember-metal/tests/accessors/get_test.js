@@ -22,7 +22,7 @@ test('should get arbitrary properties on an object', function() {
 
 });
 
-testBoth("should call unknownProperty on watched values if the value is undefined", function(get, set) {
+testBoth("should call unknownProperty on watched values if the value is undefined", function(get) {
   var obj = {
     count: 0,
     unknownProperty: function(key) {
@@ -126,7 +126,7 @@ test('should call unknownProperty if defined and value is undefined', function()
   equal(obj.count, 1, 'should have invoked');
 });
 
-testBoth("if unknownProperty is present, it is called", function(get, set) {
+testBoth("if unknownProperty is present, it is called", function() {
   var obj = {
     count: 0,
     unknownProperty: function(key) {

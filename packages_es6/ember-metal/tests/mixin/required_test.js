@@ -1,4 +1,3 @@
-/*globals setup raises */
 import {mixin, Mixin, required} from 'ember-metal/mixin';
 import {get} from 'ember-metal/property_get';
 

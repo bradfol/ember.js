@@ -1,6 +1,6 @@
 import testBoth from 'ember-metal/tests/props_helper';
 import run from 'ember-metal/run_loop';
-import {addObserver, removeObserver, _suspendObserver} from "ember-metal/observer";
+import {addObserver} from "ember-metal/observer";
 import {create}  from 'ember-metal/platform';
 import {bind} from "ember-metal/binding";
 import {rewatch} from "ember-metal/watching";
@@ -44,7 +44,7 @@ testBoth("bindings should not sync twice in a single run loop", function(get, se
   equal(getCalled, 1, "Get should only be called once");
 });
 
-testBoth("bindings should not infinite loop if computed properties return objects", function(get, set) {
+testBoth("bindings should not infinite loop if computed properties return objects", function(get) {
   var a, b, getCalled=0;
 
   run(function() {

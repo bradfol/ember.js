@@ -186,7 +186,7 @@ module('computed - cacheable', {
   setup: function() {
     obj = {};
     count = 0;
-    defineProperty(obj, 'foo', computed(function(key, value) {
+    defineProperty(obj, 'foo', computed(function() {
       count++;
       return 'bar '+count;
     }));
@@ -197,7 +197,7 @@ module('computed - cacheable', {
   }
 });
 
-testBoth('cacheable should cache', function(get, set) {
+testBoth('cacheable should cache', function(get) {
   equal(get(obj, 'foo'), 'bar 1', 'first get');
   equal(get(obj, 'foo'), 'bar 1', 'second get');
   equal(count, 1, 'should only invoke once');
@@ -226,7 +226,7 @@ testBoth('inherited property should not pick up cache', function(get, set) {
   equal(get(objB, 'foo'), 'bar 2', 'objB third get');
 });
 
-testBoth('cacheFor should return the cached value', function(get, set) {
+testBoth('cacheFor should return the cached value', function(get) {
   equal(cacheFor(obj, 'foo'), undefined, "should not yet be a cached value");
 
   get(obj, 'foo');
@@ -234,7 +234,7 @@ testBoth('cacheFor should return the cached value', function(get, set) {
   equal(cacheFor(obj, 'foo'), "bar 1", "should retrieve cached value");
 });
 
-testBoth('cacheFor should return falsy cached values', function(get, set) {
+testBoth('cacheFor should return falsy cached values', function(get) {
 
   defineProperty(obj, 'falsy', computed(function() {
     return false;
@@ -276,8 +276,6 @@ testBoth("the old value is only passed in if the computed property specifies thr
     foo: 0
   };
 
-  var receivedOldValue;
-
   defineProperty(obj, 'plusOne', computed(
     function(key, value) {
       equal(arguments.length, 2, "computed property is only invoked with two arguments");
@@ -298,7 +296,7 @@ module('computed - dependentkey', {
   setup: function() {
     obj = { bar: 'baz' };
     count = 0;
-    defineProperty(obj, 'foo', computed(function(key, value) {
+    defineProperty(obj, 'foo', computed(function() {
       count++;
       get(this, 'bar');
       return 'bar '+count;
@@ -316,7 +314,7 @@ testBoth('should lazily watch dependent keys on set', function (get, set) {
   equal(isWatching(obj, 'bar'), true, 'lazily watching dependent key');
 });
 
-testBoth('should lazily watch dependent keys on get', function (get, set) {
+testBoth('should lazily watch dependent keys on get', function (get) {
   equal(isWatching(obj, 'bar'), false, 'precond not watching dependent key');
   get(obj, 'foo');
   equal(isWatching(obj, 'bar'), true, 'lazily watching dependent key');
@@ -361,12 +359,12 @@ testBoth('should invalidate multiple nested dependent keys', function(get, set) 
 
 testBoth('circular keys should not blow up', function(get, set) {
 
-  defineProperty(obj, 'bar', computed(function(key, value) {
+  defineProperty(obj, 'bar', computed(function() {
     count++;
     return 'bar '+count;
   }).property('foo'));
 
-  defineProperty(obj, 'foo', computed(function(key, value) {
+  defineProperty(obj, 'foo', computed(function() {
     count++;
     return 'foo '+count;
   }).property('bar'));
@@ -403,7 +401,7 @@ testBoth('redefining a property should undo old depenent keys', function(get ,se
 });
 
 testBoth('can watch multiple dependent keys specified declaratively via brace expansion', function (get, set) {
-  defineProperty(obj, 'foo', computed(function(key, value) {
+  defineProperty(obj, 'foo', computed(function() {
     count++;
     return 'foo '+count;
   }).property('qux.{bar,baz}'));
@@ -566,7 +564,7 @@ testBoth('depending on Global chain', function(get, set) {
 
 });
 
-testBoth('chained dependent keys should evaluate computed properties lazily', function(get,set) {
+testBoth('chained dependent keys should evaluate computed properties lazily', function() {
   defineProperty(obj.foo.bar, 'b', computed(func));
   defineProperty(obj.foo, 'c', computed(function() {}).property('bar.b'));
   equal(count, 0, 'b should not run');
@@ -722,7 +720,7 @@ test('is chainable', function() {
 testBoth('protects against setting', function(get, set) {
   var obj = {  };
 
-  defineProperty(obj, 'bar', computed(function(key) {
+  defineProperty(obj, 'bar', computed(function() {
     return 'barValue';
   }).readOnly());
 
@@ -737,7 +735,7 @@ testBoth('protects against setting', function(get, set) {
 
 module('CP macros');
 
-testBoth('computed.not', function(get, set) {
+testBoth('computed.not', function(get) {
   var obj = {foo: true};
   defineProperty(obj, 'notFoo', computed.not('foo'));
   equal(get(obj, 'notFoo'), false);
@@ -764,7 +762,7 @@ testBoth('computed.empty', function(get, set) {
   equal(get(obj, 'quzEmpty'), false);
 });
 
-testBoth('computed.bool', function(get, set) {
+testBoth('computed.bool', function(get) {
   var obj = {foo: function() {}, bar: 'asdf', baz: null, quz: false};
   defineProperty(obj, 'fooBool', computed.bool('foo'));
   defineProperty(obj, 'barBool', computed.bool('bar'));
@@ -778,7 +776,7 @@ testBoth('computed.bool', function(get, set) {
 
 testBoth('computed.alias', function(get, set) {
   var obj = { bar: 'asdf', baz: null, quz: false};
-  defineProperty(obj, 'bay', computed(function(key) {
+  defineProperty(obj, 'bay', computed(function() {
     return 'apple';
   }));
 

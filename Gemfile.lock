@@ -1,21 +1,4 @@
 GIT
-  remote: https://github.com/emberjs/ember-dev.git
-  revision: 662016f838fffec5520ad1cfb80a78bf40b9aa30
-  branch: master
-  specs:
-    ember-dev (0.1)
-      aws-sdk
-      colored
-      execjs
-      grit
-      kicker
-      puma
-      rack
-      rake-pipeline (~> 0.8.0)
-      rake-pipeline-web-filters (~> 0.7.0)
-      uglifier
-
-GIT
   remote: https://github.com/livingsocial/rake-pipeline.git
   revision: a75d96fbadcc659a35a0ae59212e0bc60b58cc54
   specs:
@@ -29,6 +12,21 @@ PATH
   specs:
     ember-source (1.7.0.beta.1.canary)
       handlebars-source (~> 1.0)
+
+PATH
+  remote: ~/Documents/Ember/ember-dev
+  specs:
+    ember-dev (0.1)
+      aws-sdk
+      colored
+      execjs
+      grit
+      kicker
+      puma
+      rack
+      rake-pipeline (~> 0.8.0)
+      rake-pipeline-web-filters (~> 0.7.0)
+      uglifier
 
 GEM
   remote: https://rubygems.org/

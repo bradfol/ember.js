@@ -151,7 +151,7 @@ test("watching a chain then defining the nested property", function () {
   equal(didCount, 2, 'should have invoked didChange twice');
 });
 
-testBoth('watching an object value then unwatching should restore old value', function(get, set) {
+testBoth('watching an object value then unwatching should restore old value', function(get) {
 
   var obj = { foo: { bar: { baz: { biff: 'BIFF' } } } };
   addListeners(obj, 'foo.bar.baz.biff');

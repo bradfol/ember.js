@@ -1,5 +1,3 @@
-/*globals setup */
-
 import {get} from 'ember-metal/property_get';
 import {mixin, Mixin} from 'ember-metal/mixin';
 
@@ -106,7 +104,7 @@ test("mergedProperties' overwriting methods can call _super", function() {
 
   var MixinB = Mixin.create({
     foo: {
-      meth: function(a) {
+      meth: function() {
         ok(true, "MixinB's `foo.meth` method called");
         return this._super.apply(this, arguments);
       }

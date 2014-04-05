@@ -1,5 +1,3 @@
-/*globals setup */
-
 module('Ember.Mixin concatenatedProperties');
 
 test('defining concatenated properties should concat future version', function() {

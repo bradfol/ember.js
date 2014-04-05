@@ -41,7 +41,7 @@ test('run.join returns undefined if joining another run-loop', function() {
   result;
 
   run(function() {
-    var result = run.join(function() {
+    run.join(function() {
       return value;
     });
   });

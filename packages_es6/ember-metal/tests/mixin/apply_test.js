@@ -1,5 +1,3 @@
-/*globals raises */
-
 module('Ember.Mixin.apply');
 
 function K() {}

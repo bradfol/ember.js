@@ -27,7 +27,7 @@ test('should call setUnknownProperty if defined and value is undefined', functio
   var obj = {
     count: 0,
 
-    unknownProperty: function(key, value) {
+    unknownProperty: function() {
       ok(false, 'should not invoke unknownProperty if setUnknownProperty is defined');
     },
 

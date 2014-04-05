@@ -47,7 +47,7 @@ test("isWatching is true for computed properties", function() {
   testObserver(function(obj, key, fn) {
     defineProperty(obj, 'computed', Ember.computed(fn).property(key));
     get(obj, 'computed');
-  }, function(obj, key, fn) {
+  }, function(obj) {
     defineProperty(obj, 'computed', null);
   });
 });
@@ -56,7 +56,7 @@ test("isWatching is true for chained computed properties", function() {
   testObserver(function(obj, key, fn) {
     defineProperty(obj, 'computed', Ember.computed(fn).property(key + '.bar'));
     get(obj, 'computed');
-  }, function(obj, key, fn) {
+  }, function(obj) {
     defineProperty(obj, 'computed', null);
   });
 });

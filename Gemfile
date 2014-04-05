@@ -5,7 +5,7 @@ if ENV['HANDLEBARS_PATH']
 end
 
 gem "rake-pipeline", :git => "https://github.com/livingsocial/rake-pipeline.git"
-gem "ember-dev", :git => "https://github.com/emberjs/ember-dev.git", :branch => "master"
+gem "ember-dev", :path => "~/Documents/Ember/ember-dev"
 
 # Require the specific version of handlebars-source that
 # we'll be precompiling and performing tests with.

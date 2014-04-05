@@ -1,17 +1,13 @@
-/*globals Global:true */
-
 import Ember from 'ember-metal/core';
 import testBoth from 'ember-metal/tests/props_helper';
 import {addObserver, removeObserver, addBeforeObserver, _suspendObserver, _suspendObservers, removeBeforeObserver} from "ember-metal/observer";
-import {propertyWillChange, propertyDidChange} from 'ember-metal/property_events'
+import {propertyWillChange, propertyDidChange} from 'ember-metal/property_events';
 import {create} from 'ember-metal/platform';
 import {defineProperty} from 'ember-metal/properties';
 import {computed, cacheFor} from 'ember-metal/computed';
 import {Mixin, mixin, observer, beforeObserver, immediateObserver} from 'ember-metal/mixin';
 import run from 'ember-metal/run_loop';
 import { beginPropertyChanges, endPropertyChanges, changeProperties} from "ember-metal/property_events";
-import {get} from 'ember-metal/property_get';
-import {set} from 'ember-metal/property_set';
 
 // ..........................................................
 // ADD OBSERVER
@@ -51,7 +47,7 @@ testBoth('observer should fire when dependent property is modified', function(ge
   equal(count, 1, 'should have invoked observer');
 });
 
-testBoth('observer should continue to fire after dependent properties are accessed', function(get, set) {
+testBoth('observer should continue to fire after dependent properties are accessed', function(get) {
   var observerCount = 0, obj = {};
 
   defineProperty(obj, 'prop', Ember.computed(function () { return Math.random(); }));
@@ -525,7 +521,7 @@ testBoth('addObserver should allow multiple objects to observe a property', func
   var target1 = {
     count: 0,
 
-    didChange: function(obj, keyName, value) {
+    didChange: function() {
       this.count++;
     }
   };
@@ -533,7 +529,7 @@ testBoth('addObserver should allow multiple objects to observe a property', func
   var target2 = {
     count: 0,
 
-    didChange: function(obj, keyName, value) {
+    didChange: function() {
       this.count++;
     }
   };
@@ -1110,7 +1106,7 @@ testBoth('immediate observers watching multiple properties via brace expansion f
   });
 });
 
-testBoth("immediate observers are for internal properties only", function(get, set) {
+testBoth("immediate observers are for internal properties only", function() {
   expectAssertion(function() {
     immediateObserver('foo.bar', Ember.K);
   }, 'Immediate observers must observe internal properties only, not properties on other objects.');

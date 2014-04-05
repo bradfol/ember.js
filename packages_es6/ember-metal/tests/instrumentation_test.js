@@ -55,7 +55,7 @@ test("returning a value from the before callback passes it to the after callback
   var passthru1 = {}, passthru2 = {};
 
   subscribe("render", {
-    before: function(name, timestamp, payload) {
+    before: function() {
       return passthru1;
     },
     after: function(name, timestamp, payload, beforeValue) {
@@ -64,7 +64,7 @@ test("returning a value from the before callback passes it to the after callback
   });
 
   subscribe("render", {
-    before: function(name, timestamp, payload) {
+    before: function() {
       return passthru2;
     },
     after: function(name, timestamp, payload, beforeValue) {
